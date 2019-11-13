@@ -9,13 +9,17 @@ async function bootstrap() {
     resolvers: [ProjectResolver, TaskResolver],
     emitSchemaFile: true,
   });
-
+  const options = {
+    port: 8000,
+    endpoint: '/graphql',
+    subscriptions: '/subscriptions',
+    playground: '/playground',
+  }
   const server = new GraphQLServer({
     schema,
     
   });
-
-  server.start(() => console.log("Server is running on http://localhost:4000"));
+  server.start(options, ({port}) => console.log(`Server is running on http://localhost:${port}`));
 }
 
 bootstrap();
